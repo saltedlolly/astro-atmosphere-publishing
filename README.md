@@ -137,7 +137,7 @@ steps:
       npx atmosphere-publishing publish
       if ! git diff --quiet -- src/data/atmosphere-publishing.json; then
         git config user.name "github-actions[bot]"
-        git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git add src/data/atmosphere-publishing.json
         git commit -m "Atmosphere Publishing: update state"
         for attempt in 1 2 3; do git pull --rebase && git push && break; sleep 5; done
