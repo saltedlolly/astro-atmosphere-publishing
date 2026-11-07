@@ -58,7 +58,7 @@ Records are created or updated only when something changed (a hash of each recor
 - **New posts** (within `announceWithinDays`, default 14) are announced, dated now. The text is the post's `announce:` wording, or nothing, leaving the link card alone.
 - **Older posts** are announced only with `announce: "…"` (or `announce: true` for the card alone), dated to the post's own date.
 - `announce: false` never announces.
-- Each post is announced once. Replacing an announcement is a deliberate step (`--reannounce <post>`), which also offers to delete the old one.
+- Each post is announced once. Replacing an announcement (`--reannounce <post>`, offering to delete the old one) is planned for a later version; until then it's done by hand.
 
 ### Commands
 
