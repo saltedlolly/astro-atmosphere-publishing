@@ -9,8 +9,8 @@
 // there is read too, if present.
 import { existsSync } from "node:fs";
 import { loadConfig } from "../lib/config.mjs";
-import { describe, plan, publish } from "../lib/publish.mjs";
-import { reader } from "../lib/account.mjs";
+import { describe, linkedFor, plan, publish } from "../lib/publish.mjs";
+import { publicAgent, reader } from "../lib/account.mjs";
 import { saveState } from "../lib/state.mjs";
 import { syncState } from "../lib/sync.mjs";
 
@@ -21,7 +21,8 @@ async function main() {
   if (existsSync(".env")) process.loadEnvFile(".env");
   const config = await loadConfig();
   if (command === "preview") {
-    const lines = describe(await plan(config), config);
+    const result = await plan(config);
+    const lines = describe(result, config, undefined, await linkedFor(result, publicAgent()));
     if (!lines.some((line) => !line.startsWith("note:"))) {
       for (const line of lines) console.log(`  • ${line}`);
       console.log("Everything is already published and up to date.");

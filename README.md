@@ -92,12 +92,26 @@ npx atmosphere-publishing publish   # do it
 
 `publish` needs `ATPROTO_HANDLE` and `ATPROTO_APP_PASSWORD`, from the environment or a `.env` file. Then commit `src/data/atmosphere-publishing.json`, build and deploy.
 
+## How much of each post is shared
+
+Each record carries the post's title, description, tags, dates and cover image, plus searchable text: always plain text, with no formatting, images or link addresses. Reader apps link to your site to read the post. The `share` setting decides how much text that is:
+
+| `share` | Searchable text |
+| --- | --- |
+| `"more"` (default) | Everything above `<!--more-->`, or the whole post when there's no marker |
+| `"intro"` | Everything above `<!--more-->`, or just the first paragraph when there's no marker |
+| `"full"` | The whole post |
+| `"none"` | None: the record keeps its title and description |
+
+Set it for the whole site (`share` in the settings), a collection, or one post (`share: full` in its frontmatter).
+
 ## Announcements
 
 - **New posts** (published within `announceWithinDays`, default 14) are announced, dated now.
 - The announcement's text is the post's own wording, `announce: "…"` in its frontmatter, shown above the link card. **Write it for every post:** the card already shows the title and description, so say something new. Without it, the announcement is the link card alone.
 - **Older posts** are announced only when they ask (`announce: "…"`, or `announce: true` for the card alone). Their announcement is dated to the post itself, so Bluesky files it in the past and it doesn't reach followers' timelines, but it still gives the post a comment thread.
 - `announce: false` never announces a post.
+- @mentions, #hashtags and links in the wording work as in the Bluesky app: they become links, and mentioned accounts are notified. The preview lists what each announcement will link.
 - Each post is announced once.
 
 ## With Atmosphere Comments for Astro
@@ -160,7 +174,8 @@ Commit the state file even when publishing fails part-way: it's saved after ever
 | `site` | required | Your site's address. |
 | `account` | required | The publishing account's DID. |
 | `publication.name`, `.description`, `.icon` | name required | The publication record. |
-| `collections` | required | One or more: `files` (a glob) and `path` (a function), plus optional overrides: `id`, `title`, `description`, `textContent`, `tags`, `publishedAt`, `updatedAt`, `cover`, `draft` and `archived` (posts never treated as new, such as ones imported from an old site). Each takes the post (`id`, `file`, `folder`, `data` for the frontmatter, `body`). |
+| `collections` | required | One or more: `files` (a glob) and `path` (a function), plus optional overrides: `id`, `title`, `description`, `share`, `textContent`, `tags`, `publishedAt`, `updatedAt`, `cover`, `draft` and `archived` (posts never treated as new, such as ones imported from an old site). Each takes the post (`id`, `file`, `folder`, `data` for the frontmatter, `body`). |
+| `share` | default `"more"` | How much of each post goes into its record (see "How much of each post is shared"). |
 | `announceWithinDays` | default 14 | How recent a post must be to count as new. |
 | `langs` | default `["en"]` | The announcements' languages. |
 
@@ -168,11 +183,11 @@ Commit the state file even when publishing fails part-way: it's saved after ever
 
 - Node 22.13 or later, Astro 5 or later.
 - Markdown (`.md`, `.mdx`) posts. Collections from other loaders (a CMS, say) aren't supported yet.
-- Records carry plain text for search, not the full formatted post.
+- Records carry plain text for search (see `share`), not the full formatted post.
 
 ## Saying thanks
 
-It's free and open source (MIT). If it's useful, a link to [the post about it on saltedlolly.com](https://saltedlolly.com) helps other developers find it. You can also support the work through [GitHub Sponsors](https://github.com/sponsors/saltedlolly) or [Ko-fi](https://ko-fi.com/saltedlolly).
+It's free and open source (MIT). If it's useful, a link to [the post about it on saltedlolly.com](https://saltedlolly.com/atmosphere-publishing-for-astro/) helps other developers find it. You can also support the work through [GitHub Sponsors](https://github.com/sponsors/saltedlolly) or [Ko-fi](https://ko-fi.com/saltedlolly).
 
 ## License
 
