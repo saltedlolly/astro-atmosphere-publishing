@@ -1,0 +1,20 @@
+---
+// Put in the <head> of the layout that shows a post:
+//
+//   <AtmosphereHead entry={post} />
+//
+// Adds <link rel="site.standard.document" href="at://…"> for the post's
+// Standard.site record, which Atmosphere Comments for Astro, Bluesky and reader
+// apps use to connect the page to its record (and, through it, to its comment
+// thread). Adds nothing for a post that hasn't been published yet.
+import { getRecord } from "../lib/records";
+
+interface Props {
+  /** The post: its content collection entry, or its id. */
+  entry: string | { id: string };
+}
+
+const record = getRecord(Astro.props.entry);
+---
+
+{record && <link rel="site.standard.document" href={record.uri} />}

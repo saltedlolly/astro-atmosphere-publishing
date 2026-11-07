@@ -1,0 +1,64 @@
+{
+  "name": "astro-atmosphere-publishing",
+  "version": "0.1.0",
+  "description": "Publish your Astro site to the Atmosphere with Standard.site: records for every post, Bluesky announcements, and the tags that connect each page to them. Pairs with Atmosphere Comments for Astro.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Olly Stedall (https://saltedlolly.com)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saltedlolly/astro-atmosphere-publishing.git"
+  },
+  "homepage": "https://github.com/saltedlolly/astro-atmosphere-publishing#readme",
+  "keywords": [
+    "astro",
+    "astro-integration",
+    "withastro",
+    "standard.site",
+    "atproto",
+    "bluesky",
+    "atmosphere",
+    "publishing"
+  ],
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.mjs"
+    },
+    "./helpers": {
+      "types": "./helpers.d.ts",
+      "default": "./helpers.mjs"
+    },
+    "./records": "./lib/records.ts",
+    "./AtmosphereHead.astro": "./components/AtmosphereHead.astro"
+  },
+  "types": "./index.d.ts",
+  "bin": {
+    "atmosphere-publishing": "bin/cli.mjs"
+  },
+  "files": [
+    "index.mjs",
+    "index.d.ts",
+    "helpers.mjs",
+    "helpers.d.ts",
+    "virtual.d.ts",
+    "bin",
+    "lib",
+    "components",
+    "routes",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22.13"
+  },
+  "peerDependencies": {
+    "astro": ">=5"
+  },
+  "dependencies": {
+    "@atproto/api": "^0.30.3",
+    "sharp": "^0.35.5",
+    "yaml": "^2.9.1"
+  }
+}
