@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.0 (8 November 2026)
+
+- **Posts you've already announced keep their announcement.** `announcement:` in a post's frontmatter (an AT URI or a bsky.app address) names a Bluesky post that already announces it, made by hand, by a release bot or by another tool. The post is never announced again: its record points to that post (`bskyPostRef`), so comments, likes and reposts carry on in the same thread. A collection's `announcement` function maps a field of your own instead (`(post) => post.data.bskyPost`).
+- The preview lists these as "linked to existing announcement". A post that's by another account, deleted or mistyped is reported as a problem for that post only, and everything else carries on. `announce:` and `announcement:` on the same post is an error.
+- Naming a different post later moves the record to it, and nothing is deleted on Bluesky. The preview notes posts that share one announcement.
+- Nothing changes for existing sites: no state file change, and no records are rewritten.
+
 ## 0.1.1 (7 November 2026)
 
 - **@mentions, #hashtags and links in announcements work**, as in the Bluesky app: they become links, and mentioned accounts are notified. The preview lists what each announcement will link.

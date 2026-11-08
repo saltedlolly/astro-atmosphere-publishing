@@ -12,6 +12,7 @@ Maintained by [Olly Stedall](https://saltedlolly.com) and used on [saltedlolly.c
 | `lib/config.mjs` | Loads and checks `atmosphere-publishing.config.mjs` (shared by the command and the integration). |
 | `lib/entries.mjs` | Reads the posts from the Markdown files each collection names. |
 | `lib/publish.mjs` | The plan (what would change), its description, and publishing. |
+| `lib/existing.mjs` | Posts linked to an announcement made before (`announcement:`): checking it exists and is the account's own. |
 | `lib/sync.mjs` | Rebuilds the state file from the account's public records. |
 | `lib/state.mjs` | The state file: its layout, converting older layouts, reading and saving. |
 | `lib/publishers/standard-site.mjs` | Standard.site records and fingerprints. Another format would be a file beside it. |

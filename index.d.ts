@@ -38,6 +38,12 @@ export type CollectionSettings = {
   draft?: (post: Entry) => boolean;
   /** Posts that are never "new" (imported from an old site, say), so they're only announced when they ask. */
   archived?: (post: Entry) => boolean;
+  /**
+   * A Bluesky post that already announces this post (an AT URI or a bsky.app
+   * address), made by hand or another tool. The post is linked to it and never
+   * announced again. Default: the frontmatter's `announcement`.
+   */
+  announcement?: (post: Entry) => string | undefined;
 };
 
 export type Share = "more" | "intro" | "full" | "none";

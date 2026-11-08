@@ -9,7 +9,7 @@
 // there is read too, if present.
 import { existsSync } from "node:fs";
 import { loadConfig } from "../lib/config.mjs";
-import { describe, linkedFor, plan, publish } from "../lib/publish.mjs";
+import { describe, isNotice, linkedFor, plan, publish } from "../lib/publish.mjs";
 import { publicAgent, reader } from "../lib/account.mjs";
 import { saveState } from "../lib/state.mjs";
 import { syncState } from "../lib/sync.mjs";
@@ -23,7 +23,7 @@ async function main() {
   if (command === "preview") {
     const result = await plan(config);
     const lines = describe(result, config, undefined, await linkedFor(result, publicAgent()));
-    if (!lines.some((line) => !line.startsWith("note:"))) {
+    if (!lines.some((line) => !isNotice(line))) {
       for (const line of lines) console.log(`  • ${line}`);
       console.log("Everything is already published and up to date.");
       return;

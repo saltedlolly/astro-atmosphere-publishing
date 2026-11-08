@@ -58,6 +58,7 @@ Records are created or updated only when something changed (a hash of each recor
 - **New posts** (within `announceWithinDays`, default 14) are announced, dated now. The text is the post's `announce:` wording, or nothing, leaving the link card alone.
 - **Older posts** are announced only with `announce: "…"` (or `announce: true` for the card alone), dated to the post's own date.
 - `announce: false` never announces.
+- **Posts already announced elsewhere** (added in 0.2.0, for diginode.tools' release notes, 8 November 2026): `announcement: "at://…"` (or a bsky.app address, or a collection's `announcement` function) links the post to an existing Bluesky post by the publishing account. It is stored as if announced here and never announced again; one that's missing or by another account is a problem for that post only.
 - Each post is announced once. Replacing an announcement (`--reannounce <post>`, offering to delete the old one) is planned for a later version; until then it's done by hand.
 
 ### Commands

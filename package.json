@@ -1,6 +1,6 @@
 {
   "name": "astro-atmosphere-publishing",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Publish your Astro site to the Atmosphere with Standard.site: records for every post, Bluesky announcements, and the tags that connect each page to them. Pairs with Atmosphere Comments for Astro.",
   "type": "module",
   "license": "MIT",

@@ -114,6 +114,21 @@ Set it for the whole site (`share` in the settings), a collection, or one post (
 - @mentions, #hashtags and links in the wording work as in the Bluesky app: they become links, and mentioned accounts are notified. The preview lists what each announcement will link.
 - Each post is announced once.
 
+### Posts you've already announced
+
+Posts announced on Bluesky before your site used this package (by hand, by a release bot or by another tool) can keep that announcement, and the comments, likes and reposts on it. Name it in the post's frontmatter, as an AT URI or a bsky.app address:
+
+```yaml
+announcement: "https://bsky.app/profile/example.com/post/3kbbgdr267n2b"
+```
+
+The post is never announced again. Instead its record points to that post (`bskyPostRef`), so Atmosphere Comments shows that thread under the article. The preview lists it as "linked to existing announcement".
+
+- The announcement must be by your publishing account. A post that's by another account, deleted or mistyped is reported in the preview, and published without an announcement (or keeps the one it had), while everything else carries on.
+- A post can't have both `announce:` and `announcement:`: one makes a new announcement, the other uses one you already made.
+- Naming a different post later moves the record to it. Nothing is ever deleted on Bluesky.
+- If your posts already keep the address in a field of their own, map it in the collection rather than renaming it: `announcement: (post) => post.data.bskyPost`.
+
 ## With Atmosphere Comments for Astro
 
 Comments find each post's announcement through its `<link>` tag, so the comment box needs no `post` prop. For the Subscribe button, hand the publication over in one line:
@@ -174,7 +189,7 @@ Commit the state file even when publishing fails part-way: it's saved after ever
 | `site` | required | Your site's address. |
 | `account` | required | The publishing account's DID. |
 | `publication.name`, `.description`, `.icon` | name required | The publication record. |
-| `collections` | required | One or more: `files` (a glob) and `path` (a function), plus optional overrides: `id`, `title`, `description`, `share`, `textContent`, `tags`, `publishedAt`, `updatedAt`, `cover`, `draft` and `archived` (posts never treated as new, such as ones imported from an old site). Each takes the post (`id`, `file`, `folder`, `data` for the frontmatter, `body`). |
+| `collections` | required | One or more: `files` (a glob) and `path` (a function), plus optional overrides: `id`, `title`, `description`, `share`, `textContent`, `tags`, `publishedAt`, `updatedAt`, `cover`, `draft`, `archived` (posts never treated as new, such as ones imported from an old site) and `announcement` (a Bluesky post that already announces the post; see "Posts you've already announced"). Each takes the post (`id`, `file`, `folder`, `data` for the frontmatter, `body`). |
 | `share` | default `"more"` | How much of each post goes into its record (see "How much of each post is shared"). |
 | `announceWithinDays` | default 14 | How recent a post must be to count as new. |
 | `langs` | default `["en"]` | The announcements' languages. |
