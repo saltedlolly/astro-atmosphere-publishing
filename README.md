@@ -11,7 +11,7 @@ Made by [Olly Stedall](https://saltedlolly.com) and used on [saltedlolly.com](ht
 1. **You run `npx atmosphere-publishing publish` before building** (by hand or in your deploy). It reads your Markdown posts and, in your account:
    - creates or updates one `site.standard.publication` record for your site;
    - creates or updates a `site.standard.document` record for each post (title, address, description, searchable text, tags, dates and cover image), only when the post has changed;
-   - announces new posts on Bluesky with a link card. That post becomes the post's comment thread, and the record points to it (`bskyPostRef`).
+   - announces new posts on Bluesky with a link card. The card names the post's record and your publication (`associatedRefs`), so Bluesky shows "View Publication" on it. That post becomes the post's comment thread, and the record points to it (`bskyPostRef`).
 2. **It saves what it published** in `src/data/atmosphere-publishing.json`, which you commit.
 3. **When the site is built**, the integration reads that file: `<AtmosphereHead>` adds each page's `<link rel="site.standard.document">` tag, and the site serves `/.well-known/site.standard.publication`, which apps use to confirm the site is yours.
 
@@ -113,6 +113,7 @@ Set it for the whole site (`share` in the settings), a collection, or one post (
 - `announce: false` never announces a post.
 - @mentions, #hashtags and links in the wording work as in the Bluesky app: they become links, and mentioned accounts are notified. The preview lists what each announcement will link.
 - Each post is announced once.
+- The link card names the post's Standard.site record and your publication (`associatedRefs`), so Bluesky shows "View Publication" on it. To make that possible, a new post's record is saved first, then the announcement, then the record again, pointing to the announcement. Bluesky posts can't be edited, so announcements made before 0.3.0 keep their plain card.
 
 ### Posts you've already announced
 
